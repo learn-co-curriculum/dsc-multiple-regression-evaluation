@@ -249,7 +249,7 @@ This means that our model is explaining about 81% of the variance in `mpg`.
 
 R-Squared is conventionally the "to-go" measurement for overall model performance, but it has some drawbacks.
 
-First, as we add more predictors, R-Squared is only going to increase. But this doesn't necessarily mean we have a better model, since we're likely to start seeing coefficients that are unstable and potentially not statistically significant. (We'll also see that these models might violate some of the _assumptions_ of linear regression, which we'll describe in more detail later.)
+First, as we add more predictors, R-Squared is only going to increase. More predictors allow the model an extra degree of freedom in trying to approximate a target. But this doesn't necessarily mean we have a better model, since we're likely to start seeing coefficients that are unstable and potentially not statistically significant. (We'll also see that these models might violate some of the _assumptions_ of linear regression, which we'll describe in more detail later.)
 
 To address this issue, consider using **adjusted R-Squared**. This version of R-Squared includes a correction for the number of predictors used.
 
@@ -389,9 +389,11 @@ However we typically prefer using adjusted R-Squared if we're doing multiple reg
 
 ## Error-Based Metrics
 
-Some issues with R-Squared can't be addressed with small tweaks like adjusted R-Squared. [This lecture that went viral on Reddit in 2015](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/10/lecture-10.pdf), for example, argues that R-Squared is "useless". We won't go that far, but there are some cases where an error-based metric would be more appropriate than R-Squared.
+Some issues with R-Squared can't be addressed with small tweaks like adjusted R-Squared. [This lecture that went viral on Reddit in 2015](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/10/lecture-10.pdf), for example, argues that R-Squared is "useless". We won't go that far, but there are some cases where an "error-based" metric would be more appropriate than R-Squared.
 
 While R-Squared is a ***relative*** metric that compares the variance explained by the model to the variance explained by an intercept-only "baseline" model, most error-based metrics are ***absolute*** metrics that describe some form of average error.
+
+(Technically R-Squared is also based on errors, but it's more indirect, so when we refer to "error-based" metrics we mean those that are more directly measuring average error.)
 
 ### Why Not Just Sum the Residuals?
 
@@ -482,7 +484,11 @@ Unlike R-Squared, the units of MAE are in the units of $y$. Our target variable 
 
 For this specific MAE value, it means that ***our model is off by about 2.6 miles per gallon in a given prediction***.
 
-Is this a "good" MAE? Again, you would need more context from stakeholders to be able to answer this question. In general, a lower MAE is better, and the smallest theoretically possible MAE is 0.
+Is this a "good" MAE? In general, a lower MAE is better, and the smallest theoretically possible MAE is 0.
+
+Your MAE will use the same units as the target, so a "good" MAE varies accordingly. For example, an MAE of 100 would be pretty bad if the target is the fuel economy of a car in MPG, but an MAE of 100 would be excellent if the target is the price of a house in USD.
+
+Like with any other metric, you would need more context from stakeholders to be able to answer this question more precisely.
 
 ### Root Mean Squared Error
 
